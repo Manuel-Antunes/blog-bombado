@@ -18,8 +18,6 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import './routes/api.routes'
 
-Route.get('/', async ({ view }) => {
-  return view.render('welcome')
-})
+import './routes/web.routes'

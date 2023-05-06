@@ -1,6 +1,6 @@
 # For more information: https://github.com/julien-r44/adonis-sail
 version: '3'
-
+name: "blog-bombado"
 services:
   redis:
     image: redis:alpine
