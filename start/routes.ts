@@ -21,3 +21,5 @@
 import './routes/api.routes'
 
 import './routes/web.routes'
+
+import './routes/social.routes'

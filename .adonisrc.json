@@ -6,7 +6,9 @@
     "@adonisjs/repl/build/commands",
     "@adonisjs/lucid/build/commands",
     "adonis-sail/build/commands",
-    "@eidellev/inertia-adonisjs/build/commands"
+    "@eidellev/inertia-adonisjs/build/commands",
+    "adonis-lucid-filter/build/commands",
+    "@adonisjs/bouncer/build/commands"
   ],
   "exceptionHandlerNamespace": "App/Exceptions/Handler",
   "aliases": {
@@ -23,7 +25,8 @@
       "environment": [
         "web"
       ]
-    }
+    },
+    "./start/bouncer"
   ],
   "providers": [
     "./providers/AppProvider",
@@ -34,7 +37,11 @@
     "@adonisjs/lucid",
     "@adonisjs/auth",
     "@eidellev/inertia-adonisjs",
-    "@91codes/adonis-vite"
+    "@91codes/adonis-vite",
+    "@adonisjs/ally",
+    "adonis-lucid-filter",
+    "@softwarecitadel/adonisjs-girouette",
+    "@adonisjs/bouncer"
   ],
   "metaFiles": [
     {

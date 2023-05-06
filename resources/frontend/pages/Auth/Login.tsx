@@ -52,9 +52,9 @@ const Login: React.FC = () => {
                 d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"
               />
             </svg>
-            <a href="#" className="font-medium text-xl">
+            <Link href="/" className="font-medium text-xl">
               Blog Bombado
-            </a>
+            </Link>
           </div>
           <div className="space-y-5">
             <h1 className="lg:text-3xl xl:text-5xl xl:leading-snug font-extrabold">
@@ -88,9 +88,9 @@ const Login: React.FC = () => {
                   d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"
                 />
               </svg>
-              <a href="#" className="font-medium text-lg">
+              <Link href="/" className="font-medium text-lg">
                 Blog Bombado
-              </a>
+              </Link>
             </div>
             <div className="flex items-center space-x-2">
               <span>Not a member? </span>
@@ -134,7 +134,10 @@ const Login: React.FC = () => {
                 <span className="px-4">Or</span>
                 <span className="w-full border border-black" />
               </div>
-              <button className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black relative">
+              <a
+                href="/google/redirect"
+                className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black relative"
+              >
                 <span className="absolute left-4">
                   <svg
                     width="24px"
@@ -162,7 +165,7 @@ const Login: React.FC = () => {
                   </svg>
                 </span>
                 <span>Sign in with Google</span>
-              </button>
+              </a>
             </div>
           </form>
           {/* Footer */}

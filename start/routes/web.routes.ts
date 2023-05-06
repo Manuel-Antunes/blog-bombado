@@ -10,4 +10,6 @@ Route.get('/', async ({ inertia }) => {
   return inertia.render('Welcome')
 }).middleware('auth')
 
-Route.resource('users', 'web/UsersController')
+Route.resource('users', 'web/UsersController').middleware({
+  index: 'auth',
+})

@@ -135,7 +135,10 @@ const SignUp: React.FC = () => {
               <div className="w-full h-[1px] bg-gray-300" />
             </div>
             <div className="flex flex-col w-full mt-5 space-y-5">
-              <button className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black relative">
+              <a
+                href="/google/redirect"
+                className="flex items-center justify-center flex-none px-3 py-2 md:px-4 md:py-3 border-2 rounded-lg font-medium border-black relative"
+              >
                 <span className="absolute left-4">
                   <svg
                     width="24px"
@@ -163,7 +166,7 @@ const SignUp: React.FC = () => {
                   </svg>
                 </span>
                 <span>Sign in with Google</span>
-              </button>
+              </a>
             </div>
           </div>
         </div>

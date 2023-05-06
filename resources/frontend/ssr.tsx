@@ -7,8 +7,8 @@ createServer((page) =>
     page,
     render: ReactDOMServer.renderToString,
     resolve: (name) => {
-      const pages = import.meta.glob('./Pages/**/*.jsx', { eager: true })
-      return pages[`./Pages/${name}.jsx`]
+      const pages = import.meta.glob('./pages/**/*.tsx', { eager: true })
+      return pages[`./pages/${name}.tsx`]
     },
     setup: ({ App, props }) => <App {...props} />,
   })

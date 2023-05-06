@@ -1,0 +1,7 @@
+.breadcrumbs > ol {
+   @apply flex flex-wrap items-center space-x-2;
+}
+
+.breadcrumbs > ol > li {
+   @apply flex items-center space-x-2;
+}

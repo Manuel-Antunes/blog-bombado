@@ -23,6 +23,9 @@
       ],
       "Database/*": [
         "./database/*"
+      ],
+      "resources/*": [
+        "./resources/*"
       ]
     },
     "types": [
@@ -34,7 +37,11 @@
       "@japa/preset-adonis/build/adonis-typings",
       "@adonisjs/lucid",
       "@adonisjs/auth",
-      "@eidellev/inertia-adonisjs"
+      "@eidellev/inertia-adonisjs",
+      "@adonisjs/ally",
+      "adonis-lucid-filter",
+      "@softwarecitadel/adonisjs-girouette",
+      "@adonisjs/bouncer"
     ]
   }
 }

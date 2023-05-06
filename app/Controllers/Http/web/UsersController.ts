@@ -4,7 +4,10 @@ import StoreValidator from 'App/Validators/User/StoreValidator'
 
 export default class UsersController {
   // list all records from entity
-  public async index({}: HttpContextContract) {}
+  public async index({ inertia, bouncer }: HttpContextContract) {
+    await bouncer.authorize('admin')
+    return inertia.render('Users/List')
+  }
 
   // show the form for creating a new resource
   public async create({ inertia }: HttpContextContract) {
@@ -43,14 +46,14 @@ export default class UsersController {
   }
 
   // remove the specified resource from storage
-  public async destroy({ response, params, session }: HttpContextContract) {
+  public async destroy({ inertia, params, session }: HttpContextContract) {
     try {
       const user = await User.findOrFail(params.id)
       await user.delete()
-      response.redirect('/')
+      inertia.location('/')
     } catch (error) {
       session.flash('errors', error.messages)
-      response.redirect().back()
+      inertia.redirectBack()
     }
   }
 }
