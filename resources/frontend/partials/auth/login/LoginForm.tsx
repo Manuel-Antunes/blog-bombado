@@ -8,24 +8,30 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { z } from 'zod'
 
-import { Link, router } from '@inertiajs/react'
-import { useState } from 'react'
+import { Link, router, usePage } from '@inertiajs/react'
+import React, { useState } from 'react'
+import { getServerSideErrors } from '../../../helpers/getServerSideErrors'
 
 const loginSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
+  rememberMe: z.boolean(),
 })
 
 type LoginFormProps = z.infer<typeof loginSchema>
 
-const LoginForm = () => {
+const LoginForm: React.FC = () => {
+  const { errors: serverSideErrors } = usePage().props
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors: clientSideErrors },
   } = useForm<LoginFormProps>({
     resolver: zodResolver(loginSchema),
   })
+
+  const errors = { ...getServerSideErrors(serverSideErrors), ...clientSideErrors }
 
   const [signInLoading, setSignInLoading] = useState(false)
 
@@ -39,6 +45,7 @@ const LoginForm = () => {
 
   const handleSubmitForm = async (data: LoginFormProps) => {
     // signIn(data)
+    router.post('/login', data as any)
   }
 
   return (
@@ -112,6 +119,7 @@ const LoginForm = () => {
               'form-checkbox is-outline before:bg-primary checked:border-primary hover:border-primary focus:border-primary dark:border-navy-500 dark:bg-navy-900 dark:before:bg-accent dark:checked:border-accent dark:hover:border-accent dark:focus:border-accent h-5 w-5 rounded border-slate-400/70 bg-slate-100'
             )}
             type="checkbox"
+            {...register('rememberMe')}
           />
           <span className="line-clamp-1">Remember me</span>
         </label>
@@ -136,10 +144,11 @@ const LoginForm = () => {
       <div className="text-xs+ mt-4 text-center">
         <p className="line-clamp-1">
           <span>Dont have Account?</span>{' '}
-          <Link href="/auth/sign-up">
-            <a className="text-primary hover:text-primary-focus dark:text-accent-light dark:hover:text-accent transition-colors">
-              Create account
-            </a>
+          <Link
+            href="/register"
+            className="text-primary hover:text-primary-focus dark:text-accent-light dark:hover:text-accent transition-colors"
+          >
+            Create account
           </Link>
         </p>
       </div>
@@ -149,20 +158,22 @@ const LoginForm = () => {
         <div className="dark:bg-navy-500 h-px flex-1 bg-slate-200" />
       </div>
       <div className="flex space-x-4">
-        <button
+        <a
+          href="/google/redirect"
           type="button"
           className="btn hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90 w-full space-x-3 border border-slate-300 font-medium text-slate-800"
         >
           <i className="fa-brands fa-google"></i>
           <span>Google</span>
-        </button>
-        <button
+        </a>
+        <a
+          href="/google/facebook"
           type="button"
           className="btn hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90 w-full space-x-3 border border-slate-300 font-medium text-slate-800"
         >
           <i className="fa-brands fa-facebook"></i>
           <span>Facebook</span>
-        </button>
+        </a>
       </div>
     </form>
   )

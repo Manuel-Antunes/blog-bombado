@@ -3,36 +3,42 @@ import React from 'react'
 
 import AppLogo from '../components/shared/AppLogo'
 
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
+import { PageGlobalProps } from '../@types/page'
+import NavigationElement from '../components/partials/NavigationElement'
+import { navigationElements } from '../constants/navigation'
 import ProfilePanel from './ProfilePanel'
 
 const BottomTabNavigation: React.FC = () => {
+  const {
+    props: {
+      auth: { user },
+    },
+  } = usePage<PageGlobalProps>()
+
   return (
     <div className="w-full py-10 md:hidden">
-      <footer className="border-slate-150 z-30 dark:border-navy-700 dark:bg-navy-800 fixed bottom-0 flex w-full items-center justify-between border-r bg-white px-2 py-5 ">
+      <footer className="border-slate-150 dark:border-navy-700 dark:bg-navy-800 fixed bottom-0 flex w-full items-center justify-between border-r bg-white px-2 py-3 ">
         <div className="flex items-center">
           <Link href="/">
-            <a>
-              <AppLogo hideName />
-            </a>
+            <AppLogo hideName />
           </Link>
         </div>
-        <div className="flex items-center">
-          <Link href="/">
-            <a>
-              <AppLogo hideName />
-            </a>
-          </Link>
-        </div>
+        {navigationElements.map((element) => (
+          <NavigationElement
+            name={element.name}
+            key={element.title}
+            title={element.title}
+            href={element.href}
+          >
+            {element.children}
+          </NavigationElement>
+        ))}
         <div className="flex items-center">
           {/* Profile */}
           <Popover id="profile-wrapper" className="relative flex">
             <Popover.Button id="profile-ref" className="avatar h-12 w-12">
-              <img
-                className="rounded-full"
-                src="https://randomuser.me/api/portraits/men/1.jpg"
-                alt="avatar"
-              />
+              <img className="rounded-full" src={user.photo_url} alt="avatar" />
               <span className="bg-success dark:border-navy-700 absolute right-0 h-3.5 w-3.5 rounded-full border-2 border-white" />
             </Popover.Button>
             <Transition

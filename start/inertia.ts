@@ -22,4 +22,7 @@ Inertia.share({
   success: (ctx) => {
     return ctx.session.flashMessages.get('success')
   },
+  params: (ctx) => {
+    return ctx.params
+  },
 }).version(() => Inertia.manifestFile('public/assets/manifest.json'))

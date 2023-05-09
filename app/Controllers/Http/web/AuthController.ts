@@ -7,11 +7,12 @@ export default class AuthController {
 
   public async store({ request, auth, response, session }: HttpContextContract) {
     try {
-      const { email, password } = request.only(['email', 'password']) as {
+      const { email, password, rememberMe } = request.only(['email', 'password', 'rememberMe']) as {
         email: string
         password: string
+        rememberMe: boolean
       }
-      await auth.use('web').attempt(email, password)
+      await auth.use('web').attempt(email, password, rememberMe)
       response.redirect('/')
     } catch (error) {
       session.flash('errors', {

@@ -1,6 +1,5 @@
 import { Link } from '@inertiajs/react'
 import React from 'react'
-import '../styles/welcome.css'
 
 const Welcome: React.FC = () => {
   return (

@@ -30,6 +30,15 @@ export default class UpdateValidator {
       rules.unique({ table: 'users', column: 'email' }),
     ]),
     password: schema.string.optional({ trim: true }),
+    avatar: schema.file.optional({
+      size: '10mb',
+      extnames: ['jpg', 'png', 'jpeg'],
+    }),
+    bio: schema.string.optional({ trim: true }),
+    banner: schema.file.optional({
+      size: '10mb',
+      extnames: ['jpg', 'png', 'jpeg'],
+    }),
   })
 
   /**
@@ -46,5 +55,11 @@ export default class UpdateValidator {
   public messages: CustomMessages = {
     'email.email': 'Email is invalid',
     'email.unique': 'Email is already taken',
+    'password.minLength': 'Password must be at least 6 characters',
+    'password.maxLength': 'Password must be less than 255 characters',
+    'avatar.size': 'Avatar must be less than 10mb',
+    'avatar.extnames': 'Avatar must be a valid image',
+    'banner.size': 'Banner must be less than 10mb',
+    'banner.extnames': 'Banner must be a valid image',
   }
 }

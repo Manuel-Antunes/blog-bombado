@@ -1,18 +1,10 @@
-import { PageProps } from '@inertiajs/core'
-
-export interface User {
-  id: number
-  name: string
-  email: string
-  password?: string
-  remember_me_token: string
-  created_at: string
-  updated_at: string
-}
+import { ErrorBag, Errors, PageProps } from '@inertiajs/core'
+import { User } from '../../components/post/PostCard'
 
 export interface PageGlobalProps extends PageProps {
   auth: {
     user: User
   }
   success: Record<string, string>
+  errors?: Errors & ErrorBag
 }

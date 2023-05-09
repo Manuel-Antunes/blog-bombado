@@ -53,6 +53,7 @@ export default class GoogleAuthController {
       {
         name: googleUser.name,
         email: googleUser.email,
+        hasVerifiedEmail: true,
       }
     )
 

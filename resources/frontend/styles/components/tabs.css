@@ -6,10 +6,6 @@
    @apply animate-[cubic-bezier(var(--ease-in-out))_tab-shift-up_300ms_forwards];
 }
 
-.tab-content:not(.is-active) {
-   @apply !hidden;
-}
-
 @keyframes tab-shift-left {
    from {
       opacity: 0;

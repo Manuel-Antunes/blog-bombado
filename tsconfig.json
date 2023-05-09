@@ -41,7 +41,13 @@
       "@adonisjs/ally",
       "adonis-lucid-filter",
       "@softwarecitadel/adonisjs-girouette",
-      "@adonisjs/bouncer"
+      "@adonisjs/bouncer",
+      "@adonisjs/lucid-slugify",
+      "@adonisjs/mail",
+      "@rocketseat/adonis-bull",
+      "@adonisjs/redis",
+      "@adonisjs/attachment-lite",
+      "@adonisjs/drive-s3"
     ]
   }
 }

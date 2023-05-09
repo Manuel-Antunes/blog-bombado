@@ -5,12 +5,12 @@ import { defineConfig, loadEnv } from 'vite'
 
 export default ({ mode }) =>
   defineConfig({
-    plugins: [
-      react({ jsxRuntime: 'classic' }),
-      adonis({ input: 'resources/frontend/entrypoints/app.tsx' }),
-    ],
+    plugins: [react(), adonis({ input: 'resources/frontend/entrypoints/app.tsx' })],
     define: {
       'process.env': { ...process.env, ...loadEnv(mode, process.cwd()) },
+    },
+    optimizeDeps: {
+      include: ['@eidellev/adonis-stardust/client'],
     },
     resolve: {
       alias: {

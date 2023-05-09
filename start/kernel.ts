@@ -24,6 +24,7 @@ Server.middleware.register([
   () => import('@ioc:Adonis/Core/BodyParser'),
   () => import('App/Middleware/SilentAuth'),
   () => import('@eidellev/inertia-adonisjs/build/middleware/Inertia'),
+  () => import('@eidellev/adonis-stardust/build/middleware/Stardust'),
 ])
 
 /*
@@ -44,4 +45,5 @@ Server.middleware.register([
 */
 Server.middleware.registerNamed({
   auth: () => import('App/Middleware/Auth'),
+  guest: () => import('App/Middleware/Guest'),
 })

@@ -1,15 +1,10 @@
 import Route from '@ioc:Adonis/Core/Route'
 
-// authentication
-Route.get('/login', 'web/AuthController.create')
-Route.post('/login', 'web/AuthController.store')
-Route.get('/logout', 'web/AuthController.destroy')
-Route.get('/register', 'web/UsersController.create')
+Route.group(() => {
+  Route.get('/', 'web/HomeController').as('home')
+  Route.resource('posts', 'web/PostsController').as('posts')
 
-Route.get('/', async ({ inertia }) => {
-  return inertia.render('Welcome')
+  Route.get('/profile', 'web/ProfileController.edit').as('profile.edit')
+  Route.put('/profile', 'web/ProfileController.update').as('profile.update')
+  Route.delete('/profile', 'web/ProfileController.destroy').as('profile.destroy')
 }).middleware('auth')
-
-Route.resource('users', 'web/UsersController').middleware({
-  index: 'auth',
-})

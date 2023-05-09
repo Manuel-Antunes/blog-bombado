@@ -5,33 +5,35 @@ import { z } from 'zod'
 
 import { If, Then } from 'react-if'
 
-import { Link, router } from '@inertiajs/react'
+import { Link, router, usePage } from '@inertiajs/react'
+import React, { useState } from 'react'
 import { toast } from 'resources/frontend/services/toast'
-import { useState } from 'react'
+import { getServerSideErrors } from '../../../helpers/getServerSideErrors'
 
 const signUpSchema = z
   .object({
     name: z.string().min(3),
     email: z.string().email(),
     password: z.string().min(8),
-    passwordConfirmation: z.string(),
+    password_confirmation: z.string(),
     terms: z.literal(true),
   })
-  .superRefine(({ passwordConfirmation, password }, ctx) => {
-    if (passwordConfirmation !== password) {
+  .superRefine(({ password_confirmation, password }, ctx) => {
+    if (password_confirmation !== password) {
       ctx.addIssue({
         code: 'custom',
         message: 'The passwords did not match',
-        path: ['passwordConfirmation'],
+        path: ['password_confirmation'],
       })
     }
   })
 
-type SignUpFormProps = z.infer<typeof signUpSchema>
+type RegisterFormProps = z.infer<typeof signUpSchema>
 
-const SignUpForm = () => {
-  const handleSubmitForm = (data: SignUpFormProps) => {
+const RegisterForm: React.FC = () => {
+  const handleSubmitForm = (data: RegisterFormProps) => {
     try {
+      router.post('register', data as any)
     } catch (error) {
       toast.error('Failed to Sign Up.')
     }
@@ -47,31 +49,37 @@ const SignUpForm = () => {
     setInFlight(false)
   })
 
+  const { errors: serverSideErrors } = usePage().props
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<SignUpFormProps & { passwordConfirmation: string; terms: boolean }>({
+    formState: { errors: clientSideErrors },
+  } = useForm<RegisterFormProps & { password_confirmation: string; terms: boolean }>({
     resolver: zodResolver(signUpSchema),
   })
+
+  const errors = { ...getServerSideErrors(serverSideErrors), ...clientSideErrors }
 
   return (
     <form noValidate onSubmit={handleSubmit(handleSubmitForm)}>
       <div className="mt-10 flex space-x-4">
-        <button
+        <a
+          href="/google/redirect"
           type="button"
           className="btn hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90 w-full space-x-3 border border-slate-300 font-medium text-slate-800"
         >
           <i className="fa-brands fa-google"></i>
           <span>Google</span>
-        </button>
-        <button
+        </a>
+        <a
+          href="/facebook/redirect"
           type="button"
           className="btn hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90 w-full space-x-3 border border-slate-300 font-medium text-slate-800"
         >
           <i className="fa-brands fa-facebook"></i>
           <span>Facebook</span>
-        </button>
+        </a>
       </div>
       <div className="my-7 flex items-center space-x-3">
         <div className="dark:bg-navy-500 h-px flex-1 bg-slate-200" />
@@ -168,7 +176,7 @@ const SignUpForm = () => {
         </If>
         <label className="relative flex">
           <input
-            {...register('passwordConfirmation')}
+            {...register('password_confirmation')}
             className="form-input bg-slate-150 ring-primary/50 dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900 peer w-full rounded-lg px-3 py-2 pl-9 placeholder:text-slate-400 hover:bg-slate-200 focus:ring"
             placeholder="Repeat Password"
             type="password"
@@ -190,9 +198,9 @@ const SignUpForm = () => {
             </svg>
           </span>
         </label>
-        <If condition={!!errors.passwordConfirmation}>
+        <If condition={!!errors.password_confirmation}>
           <Then>
-            <span className="text-tiny+ text-error">{errors.passwordConfirmation?.message}</span>
+            <span className="text-tiny+ text-error">{errors.password_confirmation?.message}</span>
           </Then>
         </If>
         <div className="mt-4 flex items-center space-x-2">
@@ -223,10 +231,11 @@ const SignUpForm = () => {
       <div className="text-xs+ mt-4 text-center">
         <p className="line-clamp-1">
           <span>Already have an account? </span>
-          <Link href="/auth/login">
-            <a className="text-primary hover:text-primary-focus dark:text-accent-light dark:hover:text-accent transition-colors">
-              Sign In
-            </a>
+          <Link
+            href="/login"
+            className="text-primary hover:text-primary-focus dark:text-accent-light dark:hover:text-accent transition-colors"
+          >
+            Sign In
           </Link>
         </p>
       </div>
@@ -234,4 +243,4 @@ const SignUpForm = () => {
   )
 }
 
-export default SignUpForm
+export default RegisterForm

@@ -1,11 +1,11 @@
 import { Tab } from '@headlessui/react'
-import noImages from '@payless/ui/src/images/illustrations/empty-girl-box.svg'
 import clsx from 'clsx'
 import React from 'react'
+import noImages from 'resources/frontend/assets/images/illustrations/empty-girl-box.svg'
 
 const NotificationsBox: React.FC = () => {
   return (
-    <div id="notification-box" className="absolute right-0 top-10">
+    <div id="notification-box" className="absolute -right-18 z-50 md:right-0 top-12">
       <div className="notification-tab-wrapper popper-box border-slate-150 shadow-soft dark:border-navy-800 dark:bg-navy-700 dark:shadow-soft-dark mx-4 mt-1 flex max-h-[calc(100vh-6rem)] w-[calc(100vw-2rem)] flex-col rounded-lg border bg-white sm:m-0 sm:w-80">
         <Tab.Group>
           <div className="dark:bg-navy-800 dark:text-navy-200 rounded-t-lg bg-slate-100 text-slate-600">

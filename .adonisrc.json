@@ -8,7 +8,9 @@
     "adonis-sail/build/commands",
     "@eidellev/inertia-adonisjs/build/commands",
     "adonis-lucid-filter/build/commands",
-    "@adonisjs/bouncer/build/commands"
+    "@adonisjs/bouncer/build/commands",
+    "@adonisjs/mail/build/commands",
+    "@rocketseat/adonis-bull/build/commands"
   ],
   "exceptionHandlerNamespace": "App/Exceptions/Handler",
   "aliases": {
@@ -41,7 +43,14 @@
     "@adonisjs/ally",
     "adonis-lucid-filter",
     "@softwarecitadel/adonisjs-girouette",
-    "@adonisjs/bouncer"
+    "@adonisjs/bouncer",
+    "@adonisjs/lucid-slugify",
+    "@adonisjs/mail",
+    "@rocketseat/adonis-bull",
+    "@adonisjs/redis",
+    "@eidellev/adonis-stardust",
+    "@adonisjs/attachment-lite",
+    "@adonisjs/drive-s3"
   ],
   "metaFiles": [
     {

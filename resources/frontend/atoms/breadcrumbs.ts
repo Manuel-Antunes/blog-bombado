@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom } from 'recoil'
 
 const breadcrumbsAtom = atom({
   key: 'breadcrumbs',
@@ -6,6 +6,6 @@ const breadcrumbsAtom = atom({
     { path: '/home', breadcrumb: 'Home' },
     { path: '/contacts', breadcrumb: 'Contatos' },
   ],
-});
+})
 
-export default breadcrumbsAtom;
+export default breadcrumbsAtom

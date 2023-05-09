@@ -23,7 +23,7 @@ const navyColor = {
   700: '#26334D',
   750: '#222E45',
   800: '#202B40',
-  900: '#0f161f',
+  900: '#192132',
 }
 
 const royalBlueColor = {
