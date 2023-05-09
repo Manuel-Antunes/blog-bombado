@@ -7,6 +7,7 @@ import { Link, usePage } from '@inertiajs/react'
 import { PageGlobalProps } from '../@types/page'
 import NavigationElement from '../components/partials/NavigationElement'
 import { navigationElements } from '../constants/navigation'
+import { useStardust } from '../contexts/Stardust'
 import ProfilePanel from './ProfilePanel'
 
 const BottomTabNavigation: React.FC = () => {
@@ -16,11 +17,13 @@ const BottomTabNavigation: React.FC = () => {
     },
   } = usePage<PageGlobalProps>()
 
+  const stardust = useStardust()
+
   return (
     <div className="w-full py-10 md:hidden">
       <footer className="border-slate-150 dark:border-navy-700 dark:bg-navy-800 fixed bottom-0 flex w-full items-center justify-between border-r bg-white px-2 py-3 ">
         <div className="flex items-center">
-          <Link href="/">
+          <Link href={stardust.route('home')}>
             <AppLogo hideName />
           </Link>
         </div>

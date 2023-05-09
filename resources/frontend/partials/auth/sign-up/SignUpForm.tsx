@@ -8,6 +8,7 @@ import { If, Then } from 'react-if'
 import { Link, router, usePage } from '@inertiajs/react'
 import React, { useState } from 'react'
 import { toast } from 'resources/frontend/services/toast'
+import { useStardust } from '../../../contexts/Stardust'
 import { getServerSideErrors } from '../../../helpers/getServerSideErrors'
 
 const signUpSchema = z
@@ -31,9 +32,11 @@ const signUpSchema = z
 type RegisterFormProps = z.infer<typeof signUpSchema>
 
 const RegisterForm: React.FC = () => {
+  const stardust = useStardust()
+
   const handleSubmitForm = (data: RegisterFormProps) => {
     try {
-      router.post('register', data as any)
+      router.post(stardust.route('register'), data as any)
     } catch (error) {
       toast.error('Failed to Sign Up.')
     }
@@ -232,7 +235,7 @@ const RegisterForm: React.FC = () => {
         <p className="line-clamp-1">
           <span>Already have an account? </span>
           <Link
-            href="/login"
+            href={stardust.route('login')}
             className="text-primary hover:text-primary-focus dark:text-accent-light dark:hover:text-accent transition-colors"
           >
             Sign In

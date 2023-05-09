@@ -1,10 +1,14 @@
 import { InertiaProgress } from '@inertiajs/progress'
 import { createInertiaApp } from '@inertiajs/react'
+import { getAnalytics } from 'firebase/analytics'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import AppProviders from './App'
 import './bootstrap'
+import app from './services/firebase'
 import './styles/app.css'
+
+// getAnalytics(app)
 
 createInertiaApp({
   resolve: (name) => {

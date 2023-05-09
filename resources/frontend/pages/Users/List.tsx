@@ -11,6 +11,7 @@ import Flatpickr from 'react-flatpickr'
 import MainLayout from 'resources/frontend/layouts/MainLayout'
 import { User } from '../../@types/page'
 import TableComponent from '../../components/datatable/Table'
+import { useStardust } from '../../contexts/Stardust'
 import { useAdonisTable } from '../../hooks/useAdonisTable'
 
 export const usersDatatableColumns: ColumnDef<User>[] = [
@@ -53,10 +54,13 @@ export const usersDatatableColumns: ColumnDef<User>[] = [
         id: 'actions',
         header: 'Ações',
         cell: (props) => {
+          const stardust = useStardust()
           return (
             <div className="flex gap-5">
               <Link
-                href={`/users/${props.row.original.id}/edit`}
+                href={stardust.route('users.edit', {
+                  id: props.row.original.id,
+                })}
                 className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
               >
                 Editar
@@ -99,6 +103,8 @@ const List: React.FC = () => {
     }
   )
 
+  const stardust = useStardust()
+
   return (
     <MainLayout>
       <Head>
@@ -110,7 +116,7 @@ const List: React.FC = () => {
             <i className="far fa-user mr-2" />
             Gerenciar Usuários
           </h2>
-          <Link href="/users/create">
+          <Link href={stardust.route('users.create')}>
             <button className="py-3 px-5 rounded-sm text-black bg-primary hover:bg-primary-dark">
               Criar Usuário
             </button>

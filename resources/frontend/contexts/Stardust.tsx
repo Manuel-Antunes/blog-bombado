@@ -17,16 +17,14 @@ const StardustProvider: React.FC<PropsWithChildren> = ({ children }) => {
     ) as Stardust
   )
 
+  console.log(stardust)
+
   useEffect(() => {
     import('@eidellev/adonis-stardust/client').then(({ stardust }) => {
       setStardust(stardust)
     })
   }, [])
-  return (
-    <>
-      <StardustContext.Provider value={stardust}>{children}</StardustContext.Provider>
-    </>
-  )
+  return <StardustContext.Provider value={stardust}>{children}</StardustContext.Provider>
 }
 
 export const useStardust = () => React.useContext(StardustContext)

@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react'
 import { DateTime } from 'luxon'
 import React from 'react'
+import { useStardust } from '../../contexts/Stardust'
 import { Post } from './PostCard'
 
 interface PostSlateProps {
@@ -8,6 +9,8 @@ interface PostSlateProps {
 }
 
 const PostSlate: React.FC<PostSlateProps> = ({ post }) => {
+  const stardust = useStardust()
+
   return (
     <div className="card lg:flex-row overflow-hidden">
       <img
@@ -41,7 +44,9 @@ const PostSlate: React.FC<PostSlateProps> = ({ post }) => {
         </div>
         <div>
           <Link
-            href={`/posts/${post.id}`}
+            href={stardust.route('posts.show', {
+              id: post.id,
+            })}
             className="text-lg font-medium text-slate-700 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light"
           >
             {post.title}
@@ -51,7 +56,9 @@ const PostSlate: React.FC<PostSlateProps> = ({ post }) => {
         <div className="grow">
           <div className="mt-2 flex items-center text-xs">
             <Link
-              href={`/users/${post.user.id}`}
+              href={stardust.route('users.show', {
+                id: post.user.id,
+              })}
               className="flex items-center space-x-2 hover:text-slate-800 dark:hover:text-navy-100"
             >
               <div className="avatar h-6 w-6">
@@ -67,7 +74,9 @@ const PostSlate: React.FC<PostSlateProps> = ({ post }) => {
         </div>
         <div className="mt-1 flex justify-end">
           <Link
-            href={`/posts/${post.id}`}
+            href={stardust.route('posts.show', {
+              id: post.id,
+            })}
             className="btn px-2.5 py-1.5 font-medium text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25"
           >
             READ ARTICLE

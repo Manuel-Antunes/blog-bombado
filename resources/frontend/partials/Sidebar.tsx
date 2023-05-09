@@ -9,12 +9,15 @@ import AppLogo from '../components/shared/AppLogo'
 import { Link, usePage } from '@inertiajs/react'
 import { PageGlobalProps } from '../@types/page'
 import { navigationElements } from '../constants/navigation'
+import { useStardust } from '../contexts/Stardust'
 import ProfilePanel from './ProfilePanel'
 
 const Sidebar: React.FC = () => {
   const {
     auth: { user },
   } = usePage<PageGlobalProps>().props
+
+  const stardust = useStardust()
 
   return (
     <div className="sidebar print:hidden">
@@ -23,7 +26,7 @@ const Sidebar: React.FC = () => {
         <div className="border-slate-150 dark:border-navy-700 dark:bg-navy-800 flex h-full w-full flex-col items-center border-r bg-white">
           {/* Application Logo */}
           <div className="flex pt-4">
-            <Link href="/">
+            <Link href={stardust.route('home')}>
               <AppLogo hideName />
             </Link>
           </div>

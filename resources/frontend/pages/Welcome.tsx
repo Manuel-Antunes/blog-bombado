@@ -1,7 +1,10 @@
 import { Link } from '@inertiajs/react'
 import React from 'react'
+import { useStardust } from '../contexts/Stardust'
 
 const Welcome: React.FC = () => {
+  const stardust = useStardust()
+
   return (
     <main>
       <div className="flex flex-col">
@@ -24,7 +27,7 @@ const Welcome: React.FC = () => {
           </li>
         </ul>
         <Link
-          href="/logout"
+          href={stardust.route('logout')}
           className="text-center px-10 mt-5 mx-auto py-3 rounded-lg hover:bg-blue-600 w-full max-w-2xl bg-blue-700 transition-colors text-white"
         >
           Logout

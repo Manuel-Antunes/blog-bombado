@@ -17,6 +17,7 @@ import {
 } from '@ioc:Adonis/Lucid/Orm'
 import crypto from 'crypto'
 import { DateTime } from 'luxon'
+import Device from './Device'
 import UserFilter from './Filters/UserFilter'
 import Post from './Post'
 
@@ -113,6 +114,9 @@ export default class User extends compose(BaseModel, Filterable) {
     pivotRelatedForeignKey: 'follower_id',
   })
   public following: ManyToMany<typeof User>
+
+  @hasMany(() => Device)
+  public devices: HasMany<typeof Device>
 
   @beforeSave()
   public static async hashPassword(user: User) {

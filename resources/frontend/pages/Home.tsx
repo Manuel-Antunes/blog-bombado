@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/react'
 import React, { Fragment } from 'react'
 import { PageGlobalProps } from '../@types/page'
 import PostCard, { Post } from '../components/post/PostCard'
+import { useStardust } from '../contexts/Stardust'
 import MainLayout from '../layouts/MainLayout'
 
 const Home: React.FC<
@@ -10,6 +11,8 @@ const Home: React.FC<
     posts: Post[]
   }
 > = ({ posts }) => {
+  const stardust = useStardust()
+
   return (
     <MainLayout>
       <MainLayout.Header>
@@ -37,7 +40,7 @@ const Home: React.FC<
                 >
                   <Menu.Item>
                     <Link
-                      href="/posts/create"
+                      href={stardust.route('posts.create')}
                       className="dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100 flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800"
                     >
                       <svg

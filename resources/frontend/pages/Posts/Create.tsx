@@ -1,6 +1,7 @@
 import { router } from '@inertiajs/react'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
+import { useStardust } from '../../contexts/Stardust'
 import MainLayout from '../../layouts/MainLayout'
 import PostForm from '../../partials/post/PostForm'
 
@@ -15,10 +16,10 @@ interface CreatePostFormData {
 
 const Create: React.FC = () => {
   const form = useForm<CreatePostFormData>()
+  const stardust = useStardust()
 
   const onSubmit = (data: CreatePostFormData) => {
-    console.log(data)
-    router.post('/posts', data as any)
+    router.post(stardust.route('posts.store'), data as any)
   }
 
   return (

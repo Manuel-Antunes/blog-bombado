@@ -52,8 +52,8 @@
 // }
 
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { rules, schema } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
+import StoreValidator from 'App/Validators/User/StoreValidator'
 
 export default class RegisteredUserController {
   public async create({ inertia }: HttpContextContract) {
@@ -61,17 +61,7 @@ export default class RegisteredUserController {
   }
 
   public async store({ request, auth, inertia }: HttpContextContract) {
-    const validated = await request.validate({
-      schema: schema.create({
-        name: schema.string({}, [rules.required()]),
-        email: schema.string({}, [
-          rules.required(),
-          rules.email(),
-          rules.unique({ table: 'users', column: 'email' }),
-        ]),
-        password: schema.string({}, [rules.confirmed(), rules.required()]),
-      }),
-    })
+    const validated = await request.validate(StoreValidator)
 
     const user = await User.create({
       name: validated.name,

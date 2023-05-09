@@ -1,6 +1,7 @@
 import { Link, usePage } from '@inertiajs/react'
 import React from 'react'
 import { PageGlobalProps } from '../@types/page'
+import { useStardust } from '../contexts/Stardust'
 
 const ProfilePanel: React.FC = () => {
   const {
@@ -8,6 +9,8 @@ const ProfilePanel: React.FC = () => {
       auth: { user },
     },
   } = usePage<PageGlobalProps>()
+
+  const stardust = useStardust()
 
   return (
     <div className="popper-box border-slate-150 shadow-soft dark:border-navy-600 dark:bg-navy-700 w-64 rounded-lg border bg-white">
@@ -26,7 +29,7 @@ const ProfilePanel: React.FC = () => {
       </div>
       <div className="flex flex-col pt-2 pb-5">
         <Link
-          href="/profile"
+          href={stardust.route('profile.edit')}
           className="dark:hover:bg-navy-600 dark:focus:bg-navy-600 group flex items-center space-x-3 py-2 px-4 tracking-wide outline-none transition-all hover:bg-slate-100 focus:bg-slate-100"
         >
           <div className="bg-warning flex h-8 w-8 items-center justify-center rounded-lg text-white">
@@ -177,7 +180,7 @@ const ProfilePanel: React.FC = () => {
         </a>
         <div className="mt-3 px-4">
           <Link
-            href="/logout"
+            href={stardust.route('logout')}
             className="btn bg-primary hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90 h-9 w-full space-x-2 text-white"
           >
             <svg

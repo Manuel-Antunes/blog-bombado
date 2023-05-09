@@ -19,12 +19,12 @@ const tippyConfig: TippyProps = {
   placement: 'right',
 }
 
-const NavigationElement: React.FC<NavigationElementProps> = ({ title, children, href, name }) => {
+const NavigationElement: React.FC<NavigationElementProps> = ({ title, children, name }) => {
   const stardust = useStardust()
   return (
     <Tippy content={title} {...tippyConfig} className="tippy-box">
       <Link
-        href={href}
+        href={stardust.route(name)}
         className={clsx('', {
           'flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:bg-navy-600 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90':
             stardust.isCurrent(name),

@@ -17,6 +17,7 @@ Inertia.share({
   auth: (ctx) => {
     return {
       user: ctx.auth.user,
+      authenticated: ctx.auth.isLoggedIn,
     }
   },
   success: (ctx) => {

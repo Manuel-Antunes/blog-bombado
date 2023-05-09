@@ -17,7 +17,8 @@
     "App": "app",
     "Config": "config",
     "Database": "database",
-    "Contracts": "contracts"
+    "Contracts": "contracts",
+    "Helpers": "helpers"
   },
   "preloads": [
     "./start/routes",
@@ -28,7 +29,8 @@
         "web"
       ]
     },
-    "./start/bouncer"
+    "./start/bouncer",
+    "./start/events"
   ],
   "providers": [
     "./providers/AppProvider",
@@ -50,7 +52,8 @@
     "@adonisjs/redis",
     "@eidellev/adonis-stardust",
     "@adonisjs/attachment-lite",
-    "@adonisjs/drive-s3"
+    "@adonisjs/drive-s3",
+    "adonis-fcm"
   ],
   "metaFiles": [
     {

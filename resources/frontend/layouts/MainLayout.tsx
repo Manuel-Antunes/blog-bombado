@@ -1,12 +1,21 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren, useEffect } from 'react'
 
 import BottomTabNavigation from '../partials/BottomTabNavigation'
 
 import Flash from '../partials/Flash'
 import Navbar from '../partials/Navbar'
 import Sidebar from '../partials/Sidebar'
+import { useFirebase } from '../hooks/useFirebase'
 
 const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
+  const { initNotifications } = useFirebase()
+
+  useEffect(() => {
+    if (initNotifications) {
+      initNotifications()
+    }
+  }, [initNotifications])
+
   return (
     <>
       <div className="min-h-100vh is-header-blur dark:bg-navy-900 flex grow bg-slate-50">

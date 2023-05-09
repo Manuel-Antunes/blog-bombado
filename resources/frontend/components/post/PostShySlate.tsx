@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react'
 import { DateTime } from 'luxon'
 import React from 'react'
+import { useStardust } from '../../contexts/Stardust'
 import { Post } from './PostCard'
 
 interface PostSlateProps {
@@ -8,6 +9,8 @@ interface PostSlateProps {
 }
 
 const PostShySlate: React.FC<PostSlateProps> = ({ post }) => {
+  const stardust = useStardust()
+
   return (
     <div className="flex justify-between space-x-2">
       <div className="flex flex-1 flex-col justify-between">
@@ -17,7 +20,9 @@ const PostShySlate: React.FC<PostSlateProps> = ({ post }) => {
           </p>
           <div className="mt-1 text-slate-800 line-clamp-3 dark:text-navy-100">
             <Link
-              href={`/posts/${post.id}`}
+              href={stardust.route('posts.show', {
+                id: post.id,
+              })}
               className="font-medium text-slate-700 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light"
             >
               {post.title.length > 50 ? post.title.slice(0, 50) + '...' : post.title}

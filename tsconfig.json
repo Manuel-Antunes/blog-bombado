@@ -26,6 +26,9 @@
       ],
       "resources/*": [
         "./resources/*"
+      ],
+      "Helpers/*": [
+        "./helpers/*"
       ]
     },
     "types": [
@@ -47,7 +50,8 @@
       "@rocketseat/adonis-bull",
       "@adonisjs/redis",
       "@adonisjs/attachment-lite",
-      "@adonisjs/drive-s3"
+      "@adonisjs/drive-s3",
+      "adonis-fcm"
     ]
   }
 }

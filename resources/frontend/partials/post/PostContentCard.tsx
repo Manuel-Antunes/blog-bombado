@@ -4,12 +4,16 @@ import clsx from 'clsx'
 import { DateTime } from 'luxon'
 import React, { Fragment } from 'react'
 import { Post } from '../../components/post/PostCard'
+import { useStardust } from '../../contexts/Stardust'
 import { usePostActions } from '../../hooks/usePostActions'
 
 const PostContentCard: React.FC<{
   post: Post
 }> = ({ post }) => {
   const { postState, like } = usePostActions(post)
+
+  const stardust = useStardust()
+
   return (
     <div className="card p-4 lg:p-6">
       {/* Author */}
@@ -34,11 +38,7 @@ const PostContentCard: React.FC<{
                 <div className="popper-box">
                   <div className="flex w-48 flex-col items-center rounded-md border border-slate-150 bg-white p-3 text-center dark:border-navy-600 dark:bg-navy-700">
                     <div className="avatar h-16 w-16">
-                      <img
-                        className="rounded-full"
-                        src="images/avatar/avatar-19.jpg"
-                        alt="avatar"
-                      />
+                      <img className="rounded-full" src={post.user.photo_url} alt="avatar" />
                     </div>
                     <p className="mt-2 font-medium tracking-wide text-slate-700 dark:text-navy-100">
                       {post.user.name}
@@ -83,7 +83,9 @@ const PostContentCard: React.FC<{
             </div>
             <div>
               <Link
-                href={`/users/${post.user.id}`}
+                href={stardust.route('users.show', {
+                  id: post.user.id,
+                })}
                 className="font-medium text-slate-700 line-clamp-1 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light"
               >
                 {post.user.name}
@@ -135,11 +137,11 @@ const PostContentCard: React.FC<{
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    stroke-width="2"
+                    strokeWidth="2"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
                     ></path>
                   </svg>
@@ -159,7 +161,9 @@ const PostContentCard: React.FC<{
                   >
                     <Menu.Item>
                       <Link
-                        href={`/posts/${post.id}/edit`}
+                        href={stardust.route('posts.edit', {
+                          id: post.id,
+                        })}
                         className="dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100 flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800"
                       >
                         <span>Edit Post</span>

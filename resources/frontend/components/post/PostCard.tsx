@@ -3,6 +3,7 @@ import { AttachmentContract } from '@ioc:Adonis/Addons/AttachmentLite'
 import clsx from 'clsx'
 import { DateTime } from 'luxon'
 import React, { useMemo } from 'react'
+import { useStardust } from '../../contexts/Stardust'
 import { usePostActions } from '../../hooks/usePostActions'
 
 export interface Category {
@@ -17,6 +18,7 @@ export interface User {
   id: number
   name: string
   bio?: string
+  admin: boolean
   email: string
   avatar?: AttachmentContract
   banner?: AttachmentContract
@@ -54,6 +56,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
     return DateTime.fromISO(postState.created_at).toRelative()
   }, [postState])
 
+  const stardust = useStardust()
+
   return (
     <div className="card">
       <img
@@ -64,7 +68,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       <div className="flex grow flex-col p-4">
         <div className="flex">
           <Link
-            href={`/categories/${postState.category.slug}`}
+            href={stardust.route('categories.show', {
+              id: postState.category.slug,
+            })}
             className="text-xs text-info line-clamp-1"
           >
             {postState.category.name}
@@ -76,7 +82,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
 
         <div className="pt-2 line-clamp-2">
           <Link
-            href={`/posts/${postState.id}`}
+            href={stardust.route('posts.show', {
+              id: postState.id,
+            })}
             className="text-base font-medium text-slate-700 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light"
           >
             {postState.title}

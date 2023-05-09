@@ -4,9 +4,12 @@ import React from 'react'
 import AppLogo from '../components/shared/AppLogo'
 
 import { Link } from '@inertiajs/react'
+import { useStardust } from '../contexts/Stardust'
 import NotificationsBox from './NotificationsBox'
 
 const Navbar: React.FC = () => {
+  const stardust = useStardust()
+
   return (
     <nav className="header print:hidden">
       {/* App Header  */}
@@ -14,7 +17,7 @@ const Navbar: React.FC = () => {
         {/* Header Items */}
         <div className="flex w-full items-center justify-between">
           <div>
-            <Link href="/" className="md:hidden">
+            <Link href={stardust.route('home')} className="md:hidden">
               <AppLogo hideName />
             </Link>
           </div>

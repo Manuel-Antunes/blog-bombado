@@ -1,10 +1,12 @@
 import { AttachmentContract, attachment } from '@ioc:Adonis/Addons/AttachmentLite'
+import Event from '@ioc:Adonis/Core/Event'
 import Database from '@ioc:Adonis/Lucid/Database'
 import {
   BaseModel,
   BelongsTo,
   ManyToMany,
   ModelQueryBuilderContract,
+  afterCreate,
   beforeFetch,
   beforeFind,
   belongsTo,
@@ -88,6 +90,11 @@ export default class Post extends BaseModel {
         .count('id')
         .as('likes_count')
     )
+  }
+
+  @afterCreate()
+  public static async afterCreateHook(post: Post) {
+    Event.emit('new:post', post)
   }
 
   @column.dateTime({ autoCreate: true })

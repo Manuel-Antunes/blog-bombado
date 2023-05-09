@@ -10,6 +10,7 @@ import { z } from 'zod'
 
 import { Link, router, usePage } from '@inertiajs/react'
 import React, { useState } from 'react'
+import { useStardust } from '../../../contexts/Stardust'
 import { getServerSideErrors } from '../../../helpers/getServerSideErrors'
 
 const loginSchema = z.object({
@@ -43,9 +44,11 @@ const LoginForm: React.FC = () => {
     setSignInLoading(false)
   })
 
+  const stardust = useStardust()
+
   const handleSubmitForm = async (data: LoginFormProps) => {
     // signIn(data)
-    router.post('/login', data as any)
+    router.post(stardust.route('login'), data as any)
   }
 
   return (
@@ -145,7 +148,7 @@ const LoginForm: React.FC = () => {
         <p className="line-clamp-1">
           <span>Dont have Account?</span>{' '}
           <Link
-            href="/register"
+            href={stardust.route('register')}
             className="text-primary hover:text-primary-focus dark:text-accent-light dark:hover:text-accent transition-colors"
           >
             Create account

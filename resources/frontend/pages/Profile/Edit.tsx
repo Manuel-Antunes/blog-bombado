@@ -8,6 +8,7 @@ import FormControl from '../../components/shared/form/FormControl'
 import TextField from '../../components/shared/form/TextField'
 import { getServerSideErrors } from '../../helpers/getServerSideErrors'
 import MainLayout from '../../layouts/MainLayout'
+import ProfileNavigation from '../../partials/profile/ProfileNavigation'
 
 type FormData = Partial<
   User & {
@@ -42,44 +43,7 @@ const Edit: React.FC<PageGlobalProps> = ({ auth, errors: serverSideErrors }) => 
     <MainLayout>
       <div className="container mx-auto mt-10">
         <div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 w-full">
-          <div className="col-span-12 lg:col-span-4">
-            <div className="card p-4 sm:p-5">
-              <div className="flex items-center space-x-4">
-                <div className="avatar h-14 w-14">
-                  <img className="rounded-full" src={auth.user.photo_url} alt="avatar" />
-                </div>
-                <div>
-                  <h3 className="text-base font-medium text-slate-700 dark:text-navy-100">
-                    {auth.user?.name}
-                  </h3>
-                </div>
-              </div>
-              <ul className="mt-6 space-y-1.5 font-inter font-medium">
-                <li>
-                  <a
-                    className="flex items-center space-x-2 rounded-lg bg-primary px-4 py-2.5 tracking-wide text-white outline-none transition-all dark:bg-accent"
-                    href="#"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <span>Perfil</span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <ProfileNavigation />
           <div className="col-span-12 lg:col-span-8">
             <form noValidate onSubmit={handleSubmit(onSubmit)} className="card">
               <div className="flex flex-col items-center space-y-4 border-b border-slate-200 p-4 dark:border-navy-500 sm:flex-row sm:justify-between sm:space-y-0 sm:px-5">
