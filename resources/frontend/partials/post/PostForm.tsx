@@ -6,11 +6,11 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { If, Then } from 'react-if'
 import ReactQuill from 'react-quill'
 import Select from 'react-select'
+import SelectCreatable from 'react-select/creatable'
 import { PageGlobalProps } from '../../@types/page'
 import { Category } from '../../components/post/PostCard'
 import DropzoneInput from '../../components/shared/form/DropzoneInput'
 import { getServerSideErrors } from '../../helpers/getServerSideErrors'
-
 interface PostFormData {
   title: string
   description: string
@@ -223,7 +223,8 @@ const PostForm: React.FC = () => {
               render={({ field }) => {
                 return (
                   <Select
-                    className="mt-1.5 w-full"
+                    className="react-select-container mt-1.5 w-full"
+                    classNamePrefix="react-select"
                     options={mappedCategories}
                     value={mappedCategories.find((c) => c.value === field.value)}
                     onChange={(value) => field.onChange(value?.value)}
@@ -237,21 +238,28 @@ const PostForm: React.FC = () => {
               <span className="text-tiny+ text-error">{errors.category_id?.message}</span>
             </Then>
           </If>
-          {/* <label className="block">
+          <label className="block">
             <span className="font-medium text-slate-600 dark:text-navy-100">Tags</span>
             <Controller
               control={control}
-              name="tags"
-              render={({ field }) => (
-                <Select
-                  className="mt-1.5 w-full"
-                  options={['tag1', 'tag2']}
-                  value={field.value}
-                  onChange={(value) => field.onChange(value)}
-                />
-              )}
+              name="category_id"
+              render={({ field }) => {
+                return (
+                  <SelectCreatable
+                    isMulti
+                    className="react-select-container mt-1.5 w-full"
+                    classNamePrefix="react-select"
+                    options={mappedCategories}
+                  />
+                )
+              }}
             />
-          </label> */}
+          </label>
+          <If condition={!!errors.category_id}>
+            <Then>
+              <span className="text-tiny+ text-error">{errors.category_id?.message}</span>
+            </Then>
+          </If>
         </div>
       </div>
     </div>

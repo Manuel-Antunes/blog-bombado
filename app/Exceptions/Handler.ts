@@ -28,7 +28,6 @@ export default class ExceptionHandler extends HttpExceptionHandler {
 
   public async handle(error: any, ctx: HttpContextContract): Promise<any> {
     const { response, session } = ctx
-
     if (['E_INVALID_AUTH_PASSWORD', 'E_INVALID_AUTH_UID'].includes(error.code)) {
       session.flash('errors', { login: error.message })
       return response.redirect('/login')

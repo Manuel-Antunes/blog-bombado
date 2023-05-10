@@ -1,8 +1,9 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Link } from '@inertiajs/react'
+import { Link, router, usePage } from '@inertiajs/react'
 import clsx from 'clsx'
 import { DateTime } from 'luxon'
 import React, { Fragment } from 'react'
+import { PageGlobalProps } from '../../@types/page'
 import { Post } from '../../components/post/PostCard'
 import { useStardust } from '../../contexts/Stardust'
 import { usePostActions } from '../../hooks/usePostActions'
@@ -13,6 +14,12 @@ const PostContentCard: React.FC<{
   const { postState, like } = usePostActions(post)
 
   const stardust = useStardust()
+
+  const {
+    props: {
+      auth: { user },
+    },
+  } = usePage<PageGlobalProps>()
 
   return (
     <div className="card p-4 lg:p-6">
@@ -25,7 +32,6 @@ const PostContentCard: React.FC<{
                 <img className="mask is-squircle" src={post.user.photo_url} alt="avatar" />
               </div>
               <div
-                x-ref="popperRoot"
                 className="popper-root"
                 style={{
                   position: 'fixed',
@@ -129,49 +135,76 @@ const PostContentCard: React.FC<{
               </button>
             </div>
             <div className="inline-flex">
-              <Menu as={'div'} className="z-40">
-                <Menu.Button className="btn dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                    ></path>
-                  </svg>
-                </Menu.Button>
-                <Transition
-                  as={Fragment}
-                  enter="transition duration-100 ease-out"
-                  enterFrom="transform scale-95 opacity-0"
-                  enterTo="transform scale-100 opacity-100"
-                  leave="transition duration-75 ease-out"
-                  leaveFrom="transform scale-100 opacity-100"
-                  leaveTo="transform scale-95 opacity-0"
-                >
-                  <Menu.Items
-                    as={'div'}
-                    className="border-slate-150 font-inter dark:border-navy-500 dark:bg-navy-700 rounded-md border bg-white py-1.5 z-40 absolute"
-                  >
-                    <Menu.Item>
-                      <Link
-                        href={stardust.route('posts.edit', {
-                          id: post.id,
-                        })}
-                        className="dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100 flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800"
+              {user.id === post.user.id && (
+                <Menu as={'div'} className="z-40">
+                  {({ open }) => (
+                    <>
+                      <Menu.Button
+                        className={clsx(
+                          'btn dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25',
+                          {
+                            'bg-slate-300/20': open,
+                          }
+                        )}
                       >
-                        <span>Edit Post</span>
-                      </Link>
-                    </Menu.Item>
-                  </Menu.Items>
-                </Transition>
-              </Menu>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                          ></path>
+                        </svg>
+                      </Menu.Button>
+                      <Transition
+                        as={Fragment}
+                        enter="transition duration-100 ease-out"
+                        enterFrom="transform scale-95 opacity-0"
+                        enterTo="transform scale-100 opacity-100"
+                        leave="transition duration-75 ease-out"
+                        leaveFrom="transform scale-100 opacity-100"
+                        leaveTo="transform scale-95 opacity-0"
+                      >
+                        <Menu.Items
+                          as={'div'}
+                          className="border-slate-150 font-inter dark:border-navy-500 dark:bg-navy-700 rounded-md border bg-white py-1.5 z-40 absolute right-5 top-18"
+                        >
+                          <Menu.Item>
+                            <Link
+                              href={stardust.route('posts.edit', {
+                                id: post.id,
+                              })}
+                              className="dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100 flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800"
+                            >
+                              <span>Edit Post</span>
+                            </Link>
+                          </Menu.Item>
+                          <Menu.Item>
+                            <button
+                              onClick={() =>
+                                router.delete(
+                                  stardust.route('posts.destroy', {
+                                    id: post.id,
+                                  })
+                                )
+                              }
+                              className="dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100 flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800"
+                            >
+                              <span>Delete Post</span>
+                            </button>
+                          </Menu.Item>
+                        </Menu.Items>
+                      </Transition>
+                    </>
+                  )}
+                </Menu>
+              )}
             </div>
           </div>
         </div>

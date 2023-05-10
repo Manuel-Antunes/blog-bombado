@@ -19,12 +19,12 @@ const ProfilePanel: React.FC = () => {
           <img className="rounded-full" src={user.photo_url} alt="avatar" />
         </div>
         <div>
-          <a
-            href="#"
+          <Link
+            href={stardust.route('profile.edit')}
             className="hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light text-base font-medium text-slate-700"
           >
             {user.name}
-          </a>
+          </Link>
         </div>
       </div>
       <div className="flex flex-col pt-2 pb-5">

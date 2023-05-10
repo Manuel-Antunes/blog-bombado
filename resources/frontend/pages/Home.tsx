@@ -1,5 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Link } from '@inertiajs/react'
+import clsx from 'clsx'
 import React, { Fragment } from 'react'
 import { PageGlobalProps } from '../@types/page'
 import PostCard, { Post } from '../components/post/PostCard'
@@ -22,42 +23,53 @@ const Home: React.FC<
           </h2>
           <div id="top-header-menu" className="inline-flex">
             <Menu as={'div'}>
-              <Menu.Button className="btn dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25">
-                <i className="fas fa-chevron-down" />
-              </Menu.Button>
-              <Transition
-                as={Fragment}
-                enter="transition duration-100 ease-out"
-                enterFrom="transform scale-95 opacity-0"
-                enterTo="transform scale-100 opacity-100"
-                leave="transition duration-75 ease-out"
-                leaveFrom="transform scale-100 opacity-100"
-                leaveTo="transform scale-95 opacity-0"
-              >
-                <Menu.Items
-                  as={'div'}
-                  className="border-slate-150 font-inter dark:border-navy-500 dark:bg-navy-700 rounded-md border bg-white py-1.5 z-40 absolute"
-                >
-                  <Menu.Item>
-                    <Link
-                      href={stardust.route('posts.create')}
-                      className="dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100 flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800"
+              {({ open }) => (
+                <>
+                  <Menu.Button
+                    className={clsx(
+                      'btn dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25',
+                      {
+                        'bg-slate-300/20': open,
+                      }
+                    )}
+                  >
+                    <i className="fas fa-chevron-down" />
+                  </Menu.Button>
+                  <Transition
+                    as={Fragment}
+                    enter="transition duration-100 ease-out"
+                    enterFrom="transform scale-95 opacity-0"
+                    enterTo="transform scale-100 opacity-100"
+                    leave="transition duration-75 ease-out"
+                    leaveFrom="transform scale-100 opacity-100"
+                    leaveTo="transform scale-95 opacity-0"
+                  >
+                    <Menu.Items
+                      as={'div'}
+                      className="border-slate-150 mt-1 font-inter dark:border-navy-500 dark:bg-navy-700 rounded-md border bg-white py-1.5 z-40 absolute"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4.5 w-4.5 mt-px"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                      </svg>
-                      <span>New Post</span>
-                    </Link>
-                  </Menu.Item>
-                </Menu.Items>
-              </Transition>
+                      <Menu.Item>
+                        <Link
+                          href={stardust.route('posts.create')}
+                          className="dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100 flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4.5 w-4.5 mt-px"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                          </svg>
+                          <span>New Post</span>
+                        </Link>
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </>
+              )}
             </Menu>
           </div>
         </div>

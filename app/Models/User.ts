@@ -15,13 +15,14 @@ import {
   hasMany,
   manyToMany,
 } from '@ioc:Adonis/Lucid/Orm'
+import { Notifiable } from '@ioc:Verful/Notification/Mixins'
 import crypto from 'crypto'
 import { DateTime } from 'luxon'
 import Device from './Device'
 import UserFilter from './Filters/UserFilter'
 import Post from './Post'
 
-export default class User extends compose(BaseModel, Filterable) {
+export default class User extends compose(BaseModel, Filterable, Notifiable('notifications')) {
   public static $filter = () => UserFilter
 
   @column({ isPrimary: true })

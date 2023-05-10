@@ -48,10 +48,10 @@ export default class PostsController {
     return inertia.render('Posts/Show', { post, recentPosts, recentPostsFromAuthor })
   }
 
-  public async edit({ inertia, params }: HttpContextContract) {
+  public async edit({ inertia, params, bouncer }: HttpContextContract) {
     const categories = await Category.all()
-
     const post = await Post.findOrFail(params.id)
+    await bouncer.allows('adminOrOwner', post)
     return inertia.render('Posts/Edit', { post, categories })
   }
 

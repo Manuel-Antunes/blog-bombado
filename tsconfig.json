@@ -51,7 +51,8 @@
       "@adonisjs/redis",
       "@adonisjs/attachment-lite",
       "@adonisjs/drive-s3",
-      "adonis-fcm"
+      "adonis-fcm",
+      "@verful/notifications"
     ]
   }
 }

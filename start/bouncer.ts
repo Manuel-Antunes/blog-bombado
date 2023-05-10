@@ -32,6 +32,8 @@ import User from 'App/Models/User'
 */
 export const { actions } = Bouncer.define('admin', (user: User) => {
   return user.admin
+}).define('adminOrOwner', (user: User, model: any) => {
+  return user.admin || model.userId === user.id
 })
 
 /*

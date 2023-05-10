@@ -10,7 +10,8 @@
     "adonis-lucid-filter/build/commands",
     "@adonisjs/bouncer/build/commands",
     "@adonisjs/mail/build/commands",
-    "@rocketseat/adonis-bull/build/commands"
+    "@rocketseat/adonis-bull/build/commands",
+    "@verful/notifications/build/commands"
   ],
   "exceptionHandlerNamespace": "App/Exceptions/Handler",
   "aliases": {
@@ -53,7 +54,8 @@
     "@eidellev/adonis-stardust",
     "@adonisjs/attachment-lite",
     "@adonisjs/drive-s3",
-    "adonis-fcm"
+    "adonis-fcm",
+    "@verful/notifications"
   ],
   "metaFiles": [
     {
