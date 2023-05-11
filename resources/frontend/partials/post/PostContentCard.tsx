@@ -11,7 +11,7 @@ import { usePostActions } from '../../hooks/usePostActions'
 const PostContentCard: React.FC<{
   post: Post
 }> = ({ post }) => {
-  const { postState, like } = usePostActions(post)
+  const { postState, like, save } = usePostActions(post)
 
   const stardust = useStardust()
 
@@ -104,12 +104,12 @@ const PostContentCard: React.FC<{
             </div>
           </div>
           <div className="flex space-x-3">
-            <div className="hidden sm:flex">
+            <div onClick={save} className="hidden sm:flex">
               <button className="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
-                  fill="none"
+                  fill={postState.saved ? 'currentColor' : 'none'}
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
@@ -209,11 +209,22 @@ const PostContentCard: React.FC<{
           </div>
         </div>
         <div className="mt-6 flex items-center space-x-3 sm:hidden">
-          <button className="btn space-x-2 rounded-full border border-slate-300 px-4 text-xs+ font-medium text-slate-700 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-100 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90">
+          <button
+            type="button"
+            onClick={save}
+            className={clsx(
+              'btn space-x-2 rounded-full border border-slate-300 px-4 text-xs+ font-medium text-slate-700 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-100 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90',
+              {
+                'bg-primary !text-white dark:!bg-accent': postState.saved,
+              }
+            )}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-4.5 w-4.5 text-slate-400 dark:text-navy-300"
-              fill="none"
+              className={clsx('h-4.5 w-4.5 text-slate-400 dark:text-navy-300', {
+                '!text-white': postState.saved,
+              })}
+              fill={postState.saved ? 'currentColor' : 'none'}
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={2}
@@ -224,7 +235,7 @@ const PostContentCard: React.FC<{
                 d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"
               />
             </svg>
-            <span> Save</span>
+            <span> {postState.saved ? 'Saved' : 'Save'}</span>
           </button>
           <div className="flex">
             <button className="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">

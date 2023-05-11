@@ -1,4 +1,4 @@
-import { router } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import _ from 'lodash'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -41,6 +41,7 @@ const Edit: React.FC<PageGlobalProps> = ({ auth, errors: serverSideErrors }) => 
 
   return (
     <MainLayout>
+      <Head title="Profile" />
       <div className="container mx-auto mt-10">
         <div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 w-full">
           <ProfileNavigation />

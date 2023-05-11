@@ -8,8 +8,8 @@ import { If, Then } from 'react-if'
 import { Link, router, usePage } from '@inertiajs/react'
 import React, { useState } from 'react'
 import { toast } from 'resources/frontend/services/toast'
-import { useStardust } from '../../../contexts/Stardust'
-import { getServerSideErrors } from '../../../helpers/getServerSideErrors'
+import { useStardust } from '../../contexts/Stardust'
+import { getServerSideErrors } from '../../helpers/getServerSideErrors'
 
 const signUpSchema = z
   .object({

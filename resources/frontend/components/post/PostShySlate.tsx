@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react'
 import { DateTime } from 'luxon'
 import React from 'react'
 import { useStardust } from '../../contexts/Stardust'
+import { usePostActions } from '../../hooks/usePostActions'
 import { Post } from './PostCard'
 
 interface PostSlateProps {
@@ -10,6 +11,7 @@ interface PostSlateProps {
 
 const PostShySlate: React.FC<PostSlateProps> = ({ post }) => {
   const stardust = useStardust()
+  const { save, postState } = usePostActions(post)
 
   return (
     <div className="flex justify-between space-x-2">
@@ -31,11 +33,14 @@ const PostShySlate: React.FC<PostSlateProps> = ({ post }) => {
         </div>
         <div className="flex items-center justify-between">
           <div className="flex">
-            <button className="btn h-7 w-7 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+            <button
+              onClick={save}
+              className="btn h-7 w-7 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4"
-                fill="none"
+                fill={postState.saved ? 'currentColor' : 'none'}
                 viewBox="0 0 24 24"
                 stroke="currentColor"
                 strokeWidth={2}

@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react'
 import { DateTime } from 'luxon'
 import React from 'react'
 import { useStardust } from '../../contexts/Stardust'
+import { usePostActions } from '../../hooks/usePostActions'
 import { Post } from './PostCard'
 
 interface PostSlateProps {
@@ -10,6 +11,8 @@ interface PostSlateProps {
 
 const PostSlate: React.FC<PostSlateProps> = ({ post }) => {
   const stardust = useStardust()
+
+  const { save, postState } = usePostActions(post)
 
   return (
     <div className="card lg:flex-row overflow-hidden">
@@ -24,11 +27,14 @@ const PostSlate: React.FC<PostSlateProps> = ({ post }) => {
             {post.category.name}
           </a>
           <div className="-mr-1.5 flex space-x-1">
-            <button className="btn h-7 w-7 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+            <button
+              onClick={save}
+              className="btn h-7 w-7 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4.5 w-4.5"
-                fill="none"
+                fill={postState.saved ? 'currentColor' : 'none'}
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >

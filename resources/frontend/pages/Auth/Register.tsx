@@ -4,17 +4,19 @@ import dashboardMeet from 'resources/frontend/assets/images/illustrations/dashbo
 
 import { Else, If, Then } from 'react-if'
 
+import { Head } from '@inertiajs/react'
 import React from 'react'
 import darkModeAtom from '../../atoms/darkMode'
 import AppLogo from '../../components/shared/AppLogo'
 import AuthLayout from '../../layouts/AuthLayout'
-import RegisterForm from '../../partials/auth/sign-up/SignUpForm'
+import RegisterForm from '../../partials/auth/SignUpForm'
 
 const Register: React.FC = () => {
   const [darkMode] = useRecoilState(darkModeAtom)
 
   return (
     <AuthLayout>
+      <Head title="Register" />
       <AuthLayout.Banner>
         <If condition={darkMode}>
           <Then>

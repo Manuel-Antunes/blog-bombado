@@ -1,21 +1,17 @@
 import { usePage } from '@inertiajs/react'
 import React, { useEffect } from 'react'
 import { PageGlobalProps } from '../@types/page'
-import { MySwal } from '../services/swal'
+import { toast } from '../services/toast'
 
 const Flash: React.FC = () => {
   const {
-    props: { errors, success },
+    props: { errors, success, infos },
   } = usePage<PageGlobalProps>()
 
   useEffect(() => {
     if (errors) {
       Object.keys(errors).forEach((key) => {
-        MySwal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: errors[key][0],
-        })
+        toast.error(errors[key][0])
       })
     }
   }, [errors])
@@ -23,15 +19,18 @@ const Flash: React.FC = () => {
   useEffect(() => {
     if (success) {
       Object.keys(success).forEach((key) => {
-        MySwal.fire({
-          title: 'Sucesso!',
-          text: success[key][0],
-          icon: 'success',
-          confirmButtonText: 'OK',
-        })
+        toast.success(success[key][0])
       })
     }
   }, [success])
+
+  useEffect(() => {
+    if (infos) {
+      Object.keys(infos).forEach((key) => {
+        toast.info(infos[key][0])
+      })
+    }
+  }, [infos])
 
   return <></>
 }

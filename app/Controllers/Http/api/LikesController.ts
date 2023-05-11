@@ -14,7 +14,11 @@ export default class LikesController {
       await likesRelation?.detach([postId])
       return { likes_count: post.likesCount - 1, liked: false }
     } else {
-      await likesRelation?.attach([postId])
+      await likesRelation?.attach({
+        [postId]: {
+          type: 'like',
+        },
+      })
       return { likes_count: post.likesCount + 1, liked: true }
     }
   }

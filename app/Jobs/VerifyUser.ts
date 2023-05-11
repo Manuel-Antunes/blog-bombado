@@ -1,4 +1,3 @@
-import Route from '@ioc:Adonis/Core/Route'
 import { JobContract } from '@ioc:Rocketseat/Bull'
 import VerifyUserEmail from 'App/Mailers/VerifyUserEmail'
 
@@ -20,13 +19,7 @@ export default class VerifyUser implements JobContract {
   public async handle(job) {
     const { data } = job
 
-    const signedUrl = Route.makeSignedUrl(
-      'recovery',
-      { email: data.user.email },
-      { expiresIn: '1h' }
-    )
-
-    await new VerifyUserEmail({ user: data.user, signedUrl }).send()
+    await new VerifyUserEmail({ user: data.user, signedUrl: data.signedUrl }).send()
     // Do somethign with you job data
   }
 }

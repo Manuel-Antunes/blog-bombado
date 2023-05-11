@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Route from '@ioc:Adonis/Core/Route'
 import { rules, schema } from '@ioc:Adonis/Core/Validator'
 import Bull from '@ioc:Rocketseat/Bull'
 import PasswordReset from 'App/Jobs/PasswordReset'
@@ -20,11 +21,17 @@ export default class PasswordResetLinkController {
     })
 
     const user = await User.findByOrFail('email', email)
-    Bull.add(new PasswordReset().key, { user })
-    session.flash(
-      'status',
-      'If your email exists in our database, you will receive a password recovery link shortly.'
+    const signedUrl = Route.makeSignedUrl(
+      'password.reset',
+      { email: user.email },
+      { expiresIn: '1h' }
     )
+    Bull.add(new PasswordReset().key, { user, signedUrl })
+    session.flash('infos', {
+      message: [
+        'If your email exists in our database, you will receive a password recovery link shortly.',
+      ],
+    })
     return inertia.redirectBack()
   }
 }

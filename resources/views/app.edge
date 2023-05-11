@@ -8,7 +8,7 @@
   @routes
   @viteReactRefresh()
   @vite('resources/frontend/main.tsx')
-  <title>blog-bombado</title>
+  <title inertia>{{ config('app.name', 'Adonis') }}</title>
   @inertiaHead
 </head>
 

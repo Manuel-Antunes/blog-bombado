@@ -10,8 +10,8 @@ import { z } from 'zod'
 
 import { Link, router, usePage } from '@inertiajs/react'
 import React, { useState } from 'react'
-import { useStardust } from '../../../contexts/Stardust'
-import { getServerSideErrors } from '../../../helpers/getServerSideErrors'
+import { useStardust } from '../../contexts/Stardust'
+import { getServerSideErrors } from '../../helpers/getServerSideErrors'
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -126,12 +126,12 @@ const LoginForm: React.FC = () => {
           />
           <span className="line-clamp-1">Remember me</span>
         </label>
-        <a
-          href="#"
+        <Link
+          href={stardust.route('password.request')}
           className="line-clamp-1 dark:text-navy-300 dark:hover:text-navy-100 dark:focus:text-navy-100 text-xs text-slate-400 transition-colors hover:text-slate-800 focus:text-slate-800"
         >
           Forgot Password?
-        </a>
+        </Link>
       </div>
       <button
         disabled={signInLoading}

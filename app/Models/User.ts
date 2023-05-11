@@ -6,6 +6,7 @@ import {
   BaseModel,
   HasMany,
   ManyToMany,
+  ManyToManyQueryBuilderContract,
   ModelQueryBuilderContract,
   beforeFetch,
   beforeFind,
@@ -94,10 +95,28 @@ export default class User extends compose(BaseModel, Filterable, Notifiable('not
     return +this.$extras.following_count || 0
   }
 
+  @computed({
+    serializeAs: 'following_count',
+  })
+  public get savesCount() {
+    return +this.$extras.saves_count || 0
+  }
+
   @manyToMany(() => Post, {
-    pivotTable: 'likes',
+    pivotTable: 'interactions',
+    onQuery: (query: ManyToManyQueryBuilderContract<typeof Post, any>) => {
+      query.where('type', 'like')
+    },
   })
   public likes: ManyToMany<typeof Post>
+
+  @manyToMany(() => Post, {
+    pivotTable: 'interactions',
+    onQuery: (query: ManyToManyQueryBuilderContract<typeof Post, any>) => {
+      query.where('type', 'save')
+    },
+  })
+  public saves: ManyToMany<typeof Post>
 
   @hasMany(() => Post)
   public posts: HasMany<typeof Post>
@@ -131,7 +150,14 @@ export default class User extends compose(BaseModel, Filterable, Notifiable('not
   public static async eagerLoad(query: ModelQueryBuilderContract<typeof User>) {
     query.select('*')
     query.select(
-      query.client.raw('(SELECT COUNT(*) FROM likes WHERE likes.user_id = users.id) AS likes_count')
+      query.client.raw(
+        "(SELECT COUNT(*) FROM interactions WHERE interactions.user_id = users.id AND interactions.type = 'like') AS likes_count"
+      )
+    )
+    query.select(
+      query.client.raw(
+        "(SELECT COUNT(*) FROM interactions WHERE interactions.user_id = users.id AND interactions.type = 'save') AS saves_count"
+      )
     )
     query.select(
       query.client.raw(

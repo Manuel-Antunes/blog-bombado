@@ -30,19 +30,24 @@ export default class PostsController {
 
   public async show({ inertia, params, auth }: HttpContextContract) {
     const post = await Post.query()
-      .withScopes((query) => query.liked(auth.user!))
+      .withScopes((query) => query.withInteractions(auth.user!))
       .where('id', params.id)
       .firstOrFail()
     const recentPostsQuery = Post.query().where('id', '!=', post.id).orderBy('id', 'desc').limit(4)
-    if (auth.user) {
-      recentPostsQuery.withScopes((query) => query.liked(auth.user!))
-    }
-    const recentPosts = await recentPostsQuery.preload('user').preload('category').exec()
 
-    const recentPostsFromAuthor = await Post.query()
+    const recentPostsFromAuthorQuery = Post.query()
       .where('user_id', post.userId)
       .orderBy('id', 'desc')
       .limit(4)
+    if (auth.user) {
+      recentPostsQuery.withScopes((query) => query.withInteractions(auth.user!))
+      recentPostsFromAuthorQuery.withScopes((query) => query.withInteractions(auth.user!))
+    }
+    const recentPosts = await recentPostsQuery.preload('user').preload('category').exec()
+
+    const recentPostsFromAuthor = await recentPostsFromAuthorQuery
+      .preload('user')
+      .preload('category')
       .exec()
 
     return inertia.render('Posts/Show', { post, recentPosts, recentPostsFromAuthor })

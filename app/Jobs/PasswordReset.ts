@@ -1,4 +1,3 @@
-import Route from '@ioc:Adonis/Core/Route'
 import { JobContract } from '@ioc:Rocketseat/Bull'
 import PasswordResetEmail from 'App/Mailers/PasswordResetEmail'
 
@@ -20,13 +19,7 @@ export default class PasswordReset implements JobContract {
   public async handle(job) {
     const { data } = job
 
-    const signedUrl = Route.makeSignedUrl(
-      'recovery',
-      { email: data.user.email },
-      { expiresIn: '1h' }
-    )
-
-    await new PasswordResetEmail({ user: data.user, signedUrl }).send()
+    await new PasswordResetEmail({ user: data.user, signedUrl: data.signedUrl }).send()
 
     // Do somethign with you job data
   }

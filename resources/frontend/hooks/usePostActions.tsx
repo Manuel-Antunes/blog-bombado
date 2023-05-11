@@ -22,8 +22,22 @@ export const usePostActions = (post: Post) => {
     }
   }, [setPostState, post, stardust])
 
+  const save = useCallback(async () => {
+    try {
+      const { data } = await axios.post(
+        stardust.route('posts_saves.store', {
+          post_id: post.id,
+        })
+      )
+      setPostState({ ...post, saved: data.saved, saves_count: data.saves_count })
+    } catch (err) {
+      toast.error((err as any).response.data)
+    }
+  }, [setPostState, post, stardust])
+
   return {
     postState,
     like,
+    save,
   }
 }

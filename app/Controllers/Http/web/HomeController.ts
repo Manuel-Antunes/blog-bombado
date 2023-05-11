@@ -5,7 +5,7 @@ export default class HomeController {
   public async handle({ inertia, auth }: HttpContextContract) {
     const posts = await Post.query()
       .preload('category')
-      .withScopes((scopes) => scopes.liked(auth.user!))
+      .withScopes((scopes) => scopes.withInteractions(auth.user!))
 
     return inertia.render('Home', { posts })
   }

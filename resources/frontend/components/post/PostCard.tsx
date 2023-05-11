@@ -42,6 +42,8 @@ export interface Post {
   updated_at: string
   likes_count: number
   liked?: boolean
+  saves_count: number
+  saved?: boolean
   user: User
 }
 

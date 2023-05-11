@@ -27,7 +27,7 @@ const ProfileNavigation: React.FC = () => {
         </div>
         <ul className="mt-6 space-y-1.5 font-inter font-medium">
           {profileNavigationElements.map((element, index) => (
-            <li>
+            <li key={element.name}>
               <Link
                 className={clsx(
                   'flex items-center space-x-2 rounded-lg px-4 py-2.5 tracking-wide outline-none transition-all',

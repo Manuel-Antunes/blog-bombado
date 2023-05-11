@@ -1,20 +1,20 @@
+import { Head } from '@inertiajs/react'
+import React from 'react'
 import { Else, If, Then } from 'react-if'
 import { useRecoilState } from 'recoil'
 import dashboardCheckDark from 'resources/frontend/assets/images/illustrations/dashboard-check-dark.svg'
 import dashboardCheck from 'resources/frontend/assets/images/illustrations/dashboard-check.svg'
-
-import { Head } from '@inertiajs/react'
-import React from 'react'
 import darkModeAtom from '../../atoms/darkMode'
 import AppLogo from '../../components/shared/AppLogo'
 import AuthLayout from '../../layouts/AuthLayout'
-import LoginForm from '../../partials/auth/LoginForm'
+import ResetPasswordForm from '../../partials/auth/ResetPasswordForm'
 
-const LoginPage: React.FC = () => {
+const ResetPassword: React.FC<{ email: string }> = ({ email }) => {
   const [darkMode] = useRecoilState(darkModeAtom)
+
   return (
     <AuthLayout>
-      <Head title="Log in" />
+      <Head title="Forgot Password" />
       <AuthLayout.Banner>
         <If condition={darkMode}>
           <Then>
@@ -30,14 +30,18 @@ const LoginPage: React.FC = () => {
           <AppLogo hideName />
           <div className="mt-4">
             <h2 className="dark:text-navy-100 text-2xl font-semibold text-slate-600">
-              Welcome Back
+              Password Reset
             </h2>
-            <p className="dark:text-navy-300 text-slate-400">Please sign in to continue</p>
+            <p className="dark:text-navy-300 text-slate-400">
+              Setup a new password for your account.
+              <br />
+              {email}
+            </p>
           </div>
         </div>
-        <LoginForm />
+        <ResetPasswordForm />
       </div>
-      <div className="dark:text-navy-300 my-5 flex justify-center text-xs text-slate-400">
+      <div className="dark:text-navy-300 my-2 flex justify-center text-xs text-slate-400">
         <a href="#">Privacy Notice</a>
         <div className="dark:bg-navy-500 mx-3 my-1 w-px bg-slate-200" />
         <a href="#">Term of service</a>
@@ -46,4 +50,4 @@ const LoginPage: React.FC = () => {
   )
 }
 
-export default LoginPage
+export default ResetPassword

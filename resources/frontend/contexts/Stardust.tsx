@@ -17,8 +17,6 @@ const StardustProvider: React.FC<PropsWithChildren> = ({ children }) => {
     ) as Stardust
   )
 
-  console.log(stardust)
-
   useEffect(() => {
     import('@eidellev/adonis-stardust/client').then(({ stardust }) => {
       setStardust(stardust)

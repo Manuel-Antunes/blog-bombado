@@ -1,5 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Link } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import clsx from 'clsx'
 import React, { Fragment } from 'react'
 import { PageGlobalProps } from '../@types/page'
@@ -16,6 +16,7 @@ const Home: React.FC<
 
   return (
     <MainLayout>
+      <Head title="Home" />
       <MainLayout.Header>
         <div className="flex items-center space-x-1">
           <h2 className="line-clamp-1 dark:text-navy-50 text-xl font-medium text-slate-700 lg:text-2xl">
