@@ -5,11 +5,14 @@ import { generateAttachmentFromUrl } from '../../helpers/generateAttachmentFromU
 import PostFactory from './PostFactory'
 
 export default Factory.define(User, async ({ faker }) => {
+  const name = faker.name.fullName()
+  const email = faker.internet.email(name)
+
   return {
     //
     admin: faker.datatype.boolean(),
-    name: faker.name.fullName(),
-    email: faker.internet.email(),
+    name: name,
+    email: email,
     password: faker.internet.password(),
     bio: faker.lorem.paragraph(),
     hasVerifiedEmail: faker.datatype.boolean(),
@@ -30,6 +33,7 @@ export default Factory.define(User, async ({ faker }) => {
 })
   .state('admin', (user) => {
     user.admin = true
+    user.hasVerifiedEmail = true
   })
   .state('notVerified', (user) => {
     user.hasVerifiedEmail = false

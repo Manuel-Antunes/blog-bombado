@@ -11,7 +11,14 @@ const Flash: React.FC = () => {
   useEffect(() => {
     if (errors) {
       Object.keys(errors).forEach((key) => {
-        toast.error(errors[key][0])
+        const err = errors[key]
+        if (Array.isArray(err)) {
+          err.forEach((e) => {
+            toast.error(e)
+          })
+        } else {
+          toast.error(errors[key])
+        }
       })
     }
   }, [errors])
@@ -19,7 +26,14 @@ const Flash: React.FC = () => {
   useEffect(() => {
     if (success) {
       Object.keys(success).forEach((key) => {
-        toast.success(success[key][0])
+        const succ = success[key]
+        if (Array.isArray(succ)) {
+          succ.forEach((s) => {
+            toast.success(s)
+          })
+        } else {
+          toast.success(success[key][0])
+        }
       })
     }
   }, [success])
@@ -27,7 +41,14 @@ const Flash: React.FC = () => {
   useEffect(() => {
     if (infos) {
       Object.keys(infos).forEach((key) => {
-        toast.info(infos[key][0])
+        const info = infos[key]
+        if (Array.isArray(info)) {
+          info.forEach((i) => {
+            toast.info(i)
+          })
+        } else {
+          toast.info(infos[key][0])
+        }
       })
     }
   }, [infos])

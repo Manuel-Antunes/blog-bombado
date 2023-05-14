@@ -102,9 +102,16 @@ export default class User extends compose(BaseModel, Filterable, Notifiable('not
     return +this.$extras.saves_count || 0
   }
 
+  @computed({
+    serializeAs: 'has_password',
+  })
+  public get hasPassword() {
+    return !!this.password
+  }
+
   @manyToMany(() => Post, {
     pivotTable: 'interactions',
-    onQuery: (query: ManyToManyQueryBuilderContract<typeof Post, any>) => {
+    onQuery: (query: ManyToManyQueryBuilderContract<typeof Post, User>) => {
       query.where('type', 'like')
     },
   })
@@ -112,7 +119,7 @@ export default class User extends compose(BaseModel, Filterable, Notifiable('not
 
   @manyToMany(() => Post, {
     pivotTable: 'interactions',
-    onQuery: (query: ManyToManyQueryBuilderContract<typeof Post, any>) => {
+    onQuery: (query: ManyToManyQueryBuilderContract<typeof Post, User>) => {
       query.where('type', 'save')
     },
   })

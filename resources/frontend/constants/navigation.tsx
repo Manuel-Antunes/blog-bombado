@@ -3,7 +3,6 @@ import { NavigationElementProps } from '../components/partials/NavigationElement
 export const navigationElements: NavigationElementProps[] = [
   {
     title: 'Home',
-    href: '/',
     children: (
       <svg className="h-7 w-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -31,12 +30,40 @@ export const navigationElements: NavigationElementProps[] = [
     ),
     name: 'home',
   },
+  {
+    title: 'New Post',
+    children: (
+      <svg className="h-7 w-7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+          <rect
+            x="4"
+            y="11"
+            width="16"
+            height="2"
+            rx="1"
+            fillOpacity="0.3"
+            className="dark:fill-navy-200 fill-slate-500"
+          />
+          <rect
+            opacity="0.3"
+            transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) "
+            x="4"
+            y="11"
+            width="16"
+            height="2"
+            rx="1"
+            className="dark:fill-navy-200 fill-slate-500"
+          />
+        </g>
+      </svg>
+    ),
+    name: 'posts.create',
+  },
 ]
 
 export const profileNavigationElements: NavigationElementProps[] = [
   {
     title: 'Perfil',
-    href: '/profile',
     children: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +84,6 @@ export const profileNavigationElements: NavigationElementProps[] = [
   },
   {
     title: 'Notificações',
-    href: '/profile/notifications',
     children: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

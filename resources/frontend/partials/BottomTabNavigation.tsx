@@ -1,9 +1,7 @@
 import { Popover, Transition } from '@headlessui/react'
 import React from 'react'
 
-import AppLogo from '../components/shared/AppLogo'
-
-import { Link, usePage } from '@inertiajs/react'
+import { usePage } from '@inertiajs/react'
 import { PageGlobalProps } from '../@types/page'
 import NavigationElement from '../components/partials/NavigationElement'
 import { navigationElements } from '../constants/navigation'
@@ -22,18 +20,8 @@ const BottomTabNavigation: React.FC = () => {
   return (
     <div className="w-full py-10 md:hidden">
       <footer className="border-slate-150 z-40 dark:border-navy-700 dark:bg-navy-800 fixed bottom-0 flex w-full items-center justify-between border-r bg-white px-2 py-3 ">
-        <div className="flex items-center">
-          <Link href={stardust.route('home')}>
-            <AppLogo hideName />
-          </Link>
-        </div>
         {navigationElements.map((element) => (
-          <NavigationElement
-            name={element.name}
-            key={element.title}
-            title={element.title}
-            href={element.href}
-          >
+          <NavigationElement name={element.name} key={element.title} title={element.title}>
             {element.children}
           </NavigationElement>
         ))}

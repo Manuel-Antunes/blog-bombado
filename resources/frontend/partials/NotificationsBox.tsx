@@ -136,7 +136,7 @@ const NotificationsBox: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <div className="py-4">
+                <div className="py-4 space-y-4">
                   {notifications.map((notification) => (
                     <NotificationElement key={notification.id} notification={notification} />
                   ))}
@@ -160,7 +160,7 @@ const NotificationsBox: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <div className="py-4">
+                <div className="py-4 space-y-4">
                   {notifications.map((notification) => (
                     <NotificationElement key={notification.id} notification={notification} />
                   ))}
@@ -184,7 +184,7 @@ const NotificationsBox: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <div className="py-4">
+                <div className="py-4 space-y-4">
                   {notifications.map((notification) => (
                     <NotificationElement key={notification.id} notification={notification} />
                   ))}
@@ -208,7 +208,7 @@ const NotificationsBox: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                <div className="py-4">
+                <div className="py-4 space-y-4">
                   {notifications.map((notification) => (
                     <NotificationElement key={notification.id} notification={notification} />
                   ))}

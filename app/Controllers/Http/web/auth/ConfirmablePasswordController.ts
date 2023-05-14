@@ -8,9 +8,11 @@ export default class ConfirmablePasswordController {
   }
 
   public async store({ request, auth, session, response }: HttpContextContract) {
-    if (!(await auth.use('web').attempt(auth.user?.email || '', request.input('password')))) {
+    try {
+      await auth.use('web').verifyCredentials(auth.user?.email || '', request.input('password'))
+    } catch (error) {
       throw new ValidationException(true, {
-        password: ['Invalid credentials'],
+        current_password: ['Invalid credentials'],
       })
     }
     session.put('auth.password_confirmed_at', Date.now())

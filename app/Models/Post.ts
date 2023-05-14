@@ -45,21 +45,21 @@ export default class Post extends BaseModel {
   @belongsTo(() => Category)
   public category: BelongsTo<typeof Category>
 
-  @manyToMany(() => Post, {
+  @manyToMany(() => User, {
     pivotTable: 'interactions',
-    onQuery: (query: ManyToManyQueryBuilderContract<typeof Post, any>) => {
+    onQuery: (query: ManyToManyQueryBuilderContract<typeof User, Post>) => {
       query.where('type', 'like')
     },
   })
-  public likes: ManyToMany<typeof Post>
+  public likes: ManyToMany<typeof User>
 
-  @manyToMany(() => Post, {
+  @manyToMany(() => User, {
     pivotTable: 'interactions',
-    onQuery: (query: ManyToManyQueryBuilderContract<typeof Post, any>) => {
+    onQuery: (query: ManyToManyQueryBuilderContract<typeof User, Post>) => {
       query.where('type', 'save')
     },
   })
-  public saves: ManyToMany<typeof Post>
+  public saves: ManyToMany<typeof User>
 
   @attachment({ folder: 'posts/images', preComputeUrl: true })
   public image: AttachmentContract

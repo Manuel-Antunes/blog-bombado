@@ -8,7 +8,7 @@ export default class ProfileController {
     return inertia.render('Profile/Edit')
   }
 
-  public async update({ request, auth, response }: HttpContextContract) {
+  public async update({ request, auth, response, session }: HttpContextContract) {
     const { avatar, banner, ...data } = await request.validate(UpdateValidator)
     const user = auth.user!
     user.merge({ ...data })
@@ -24,6 +24,10 @@ export default class ProfileController {
       user.hasVerifiedEmail = false
       await user.save()
     }
+    session.flash('success', {
+      message: ['Profile updated successfully'],
+    })
+
     return response.redirect().toRoute('profile.edit')
   }
 
@@ -32,14 +36,20 @@ export default class ProfileController {
       schema: schema.create({
         password: schema.string({}, []),
       }),
+      messages: {
+        'password.required': 'Password is required',
+      },
     })
-    if (!(await auth.attempt(auth.user!.email, request.input('password')))) {
+    try {
+      await auth.use('web').verifyCredentials(auth.user?.email || '', request.input('password'))
+    } catch (error) {
       throw new ValidationException(true, {
-        password: 'Invalid password',
+        current_password: ['Invalid credentials'],
       })
     }
+    const user = auth.user!
     await auth.logout()
-    await auth.user!.delete()
+    await user!.delete()
     return response.redirect().toRoute('home')
   }
 }

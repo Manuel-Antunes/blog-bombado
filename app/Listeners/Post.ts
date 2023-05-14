@@ -16,7 +16,8 @@ export default class Post {
       device.devices.map((device) => device.token)
     )
     const recipients = { registrationTokens }
-    const user = await User.findOrFail(post.userId)
+    const user = await User.find(post.userId)
+    if (!user) return
     const subject = 'New post'
     const message = `New post from ${user.name}: ${post.title}`
     await Notification.send(

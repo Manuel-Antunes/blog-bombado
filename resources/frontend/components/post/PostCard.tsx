@@ -29,6 +29,7 @@ export interface User {
   created_at: string
   updated_at: string
   remember_me_token: string
+  has_password: boolean
 }
 
 export interface Post {

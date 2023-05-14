@@ -8,7 +8,6 @@ import { useStardust } from '../../contexts/Stardust'
 export interface NavigationElementProps {
   children: React.ReactNode
   title: string
-  href: string
   name: string
 }
 

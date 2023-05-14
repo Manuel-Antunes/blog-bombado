@@ -35,12 +35,7 @@ const Sidebar: React.FC = () => {
             {/* Dashobards */}
 
             {navigationElements.map((element) => (
-              <NavigationElement
-                name={element.name}
-                key={element.title}
-                title={element.title}
-                href={element.href}
-              >
+              <NavigationElement name={element.name} key={element.title} title={element.title}>
                 {element.children}
               </NavigationElement>
             ))}

@@ -10,7 +10,7 @@ const NotificationElement: React.FC<{
         <i className="fa fa-user-edit text-secondary dark:text-secondary-light" />
       </div>
       <div>
-        <p className="dark:text-navy-100 font-medium text-slate-600">{notification.data.title}</p>
+        <p className="dark:text-navy-100 font-medium text-slate-600">{notification.data.subject}</p>
         <div className="line-clamp-1 dark:text-navy-300 mt-1 text-xs text-slate-400">
           {notification.data.message}
         </div>
